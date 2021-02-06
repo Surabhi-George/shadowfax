@@ -161,6 +161,7 @@ section{
     top: 1px;
     right: 1px;
     min-width: 275px;
+    max-width: 340px;
 }
 .s-n-summary h4{
     background: #eaf3f8;

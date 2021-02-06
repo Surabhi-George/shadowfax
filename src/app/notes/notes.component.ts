@@ -58,8 +58,8 @@ export class NotesComponent implements OnInit {
 
     ngOnInit(): void {
         this.getNotes();
-        this.note.sort((a,b) => a.title.localeCompare(b.title));
         this.getLastUpdated();
+        this.note.sort((a,b) => a.title.localeCompare(b.title));
     }
     // sorttable
     sortTable(){

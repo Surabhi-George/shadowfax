@@ -1,0 +1,71 @@
+<section>
+    <div class="s-n-wrapper">
+        <div class="s-n-head s-display-flex">
+            <h5 class="m-0">Notes</h5>
+            <div>
+                <mat-icon aria-hidden="false" (click)="showForm()" aria-label="Example home icon">
+                    <span *ngIf="!showAddNoteForm">add</span><span *ngIf="showAddNoteForm">remove</span>
+                </mat-icon>
+                <mat-icon aria-hidden="false" aria-label="Example home icon">more_vert</mat-icon>
+                <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon>
+            </div>
+        </div>
+
+        <!-- FORM -->
+        <div class="s-n-form" *ngIf="showAddNoteForm">
+            <mat-icon aria-hidden="false" (click)="showSummaryPopup()" aria-label="Example home icon">arrow_drop_up</mat-icon>
+            <h4>Create or Edit</h4>
+            <div class="s-n-form-rgt">
+                <div class="s-form-group">
+                    <label>Title</label>
+                    <div class=" s-display-flex">
+                        <div>
+                            <input type="text" [(ngModel)]="ndata.title" placeholder="Some name for my note!" />
+                        </div>
+                        <div class="s-display-flex">
+                            <span class="mr-20">Editable?</span> <input type="checkbox" [(ngModel)]="iseditable" [ngModelOptions]="{standalone: true}" /> Yes
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="s-form-group">
+                    <label>Text</label>
+                    <div class="s-display-flex-end">
+                        <textarea [(ngModel)]="ndata.text" class=" mr-30" placeholder="" ></textarea><button (click)="saveData()" [disabled]="!iseditable" class="btn">
+                            <span *ngIf="!isedit">Save</span><span *ngIf="isedit">Update</span>
+                        </button>
+                    </div>
+                    <span class="s-red" *ngIf="error">{{error}}</span>
+                </div>
+            </div>
+        </div>
+        <!-- SUMMARY -->
+        <div class="s-n-summary" *ngIf="showSummary">
+            <h4>Summary  <mat-icon (click)="hideSummaryPopup()" aria-hidden="false" aria-label="Example home icon">arrow_drop_up</mat-icon></h4>
+            <div class="s-sum-data s-flex s-display-flex-center">
+                <span class="s-count mr-30 s-font-light">{{ note?.length || '0' }}<span>notes</span></span>
+                <div>
+                    
+                    <p class="s-sum-head m-0 s-font-light">Last Updated</p>
+                    <p class="s-sum-text s-font-light">{{latest[0].last_updated}}</p>
+                    <p class="s-sum-head m-0 s-font-light mt-30">Last Note Updated</p>
+                    <p class="s-sum-text s-font-light">#{{latest[0].id}} - '{{latest[0].title}}'</p>
+                </div>
+            </div>
+        </div>
+        <!-- table -->
+        <div class="s-n-table-wrap">
+            <table>
+                <tr>
+                    <th (click)="sortTable()">Title</th>
+                    <th>Time Created</th>
+                </tr>
+                <tr *ngFor="let data of note;let i = index;" (click)="editForm(data,i)">
+                    <td>{{data.title}}</td>
+                    <td>{{data.created}}</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+</section>
